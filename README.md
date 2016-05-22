@@ -1,0 +1,3 @@
+# PerfTest
+
+Testy wydajnościowe Postgres, Neo4J, ConcurrentHashMap, JMS, ..., ..., ...
