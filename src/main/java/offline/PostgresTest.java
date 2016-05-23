@@ -45,14 +45,14 @@ public class PostgresTest {
 
 
 //        System.getProperties().put("java.util.concurrent.ForkJoinPool.common.parallelism", 4);
-        System.out.println("Threads:" + ForkJoinPool.commonPool().getParallelism());
-//        ForkJoinPool threadPool = new ForkJoinPool(1);
+//        System.out.println("Threads:" + ForkJoinPool.commonPool().getParallelism());
+//        ForkJoinPool threadPool = new ForkJoinPool(200);
 //        threadPool.submit(() -> lista.parallelStream().forEach(
 //                r-> {
 //                    repo.save(r);
 ////                    System.out.println(r);
 //                })).get();
-////        lista.parallelStream().forEach(r -> repo.save(r));
+        lista.parallelStream().forEach(r -> repo.save(r));
         long en = System.currentTimeMillis();
         System.out.println(repo.count());
         System.out.println("Time: " + (en-st) + "[ms]");
