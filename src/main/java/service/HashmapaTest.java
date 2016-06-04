@@ -11,20 +11,20 @@ import java.util.UUID;
 public class HashmapaTest {
     public static void main(String[] args) {
         Map<String, String> baza = new HashMap<>();
-        long st = System.currentTimeMillis();
-        int nCreate = ((int) 1e6);
+//        long st = System.currentTimeMillis();
+        int nCreate = ((int) 1e5);
         for (int i = 0; i < nCreate; i++) {
             String uid = UUID.randomUUID().toString();
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < 20; j++) {
-                sb.append(uid);
-            }
-            baza.put(uid, sb.toString());
+//            StringBuilder sb = new StringBuilder();
+//            for (int j = 0; j < 20; j++) {
+//                sb.append(uid);
+//            }
+//            baza.put(uid, sb.toString());
+            baza.put(String.valueOf(i), uid);
         }
-        long en = System.currentTimeMillis();
 //        System.out.println((en-st) + "[ms]");
-        st += 2800; //offset fori uuid creation
-        System.out.println("Creation: " + (en-st) + "[ms]");
+//        st += 2800; //offset fori uuid creation
+//        System.out.println("Creation: " + (en-st) + "[ms]");
 //        try {
 //            Thread.sleep(10000);
 //        } catch (InterruptedException e) {
@@ -41,6 +41,16 @@ public class HashmapaTest {
 //        System.out.println(rr);
 //        en = System.currentTimeMillis();
 //        System.out.println((en - st) + "[ms]");
-
+        System.out.println("-->");
+        long st = System.currentTimeMillis();
+        int NQUERIES = 10000;
+        int cnt = 0;
+        for (int i = 0; i < NQUERIES; i++) {
+            String val = UUID.randomUUID().toString();
+            if (baza.containsValue(val)) ++cnt;
+        }
+        System.out.println(cnt);
+        long en = System.currentTimeMillis();
+        System.out.println("Duration: " + (en-st) + "[ms]");
     }
 }

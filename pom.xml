@@ -5,7 +5,7 @@
     <artifactId>TestMvc</artifactId>
     <packaging>war</packaging>
     <version>0.1.1-SNAPSHOT</version>
-    <name>TestMvc</name>
+    <name>PerfTest</name>
 
     <properties>
         <spring.version>4.1.1.RELEASE</spring.version>
@@ -143,7 +143,7 @@
     </dependencies>
 
     <build>
-        <finalName>TestMvc</finalName>
+        <finalName>PerfTest</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

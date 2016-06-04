@@ -14,15 +14,27 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
+/**
+ * Summary:
+ * Conditions: N=1e6 key-UUID pairs in local VM database
+ *
+ * 100 searches --> 4000ms      (no index O(N)=40ms)
+ *
+ * with index
+ *
+ * 10000 searches --> 2000ms    (with index seach 0.2ms)
+ *
+ */
+
 
 public class PostgresTest {
     public static void main(String[] args) throws Exception{
         ClassPathXmlApplicationContext ctx =  new ClassPathXmlApplicationContext("spring-config.xml");
         RekordRe repo = ctx.getBean(RekordRe.class);
-        long ss = repo.count();
-        long st = System.currentTimeMillis();
+
         List<Rekord> lista = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        int NQUERIES = 10000;
+        for (int i = 0; i < NQUERIES; i++) {
             Rekord r = new Rekord();
             r.setValue(UUID.randomUUID().toString());
             lista.add(r);
@@ -37,12 +49,11 @@ public class PostgresTest {
 //                    if (repo.findOne(r.nextInt(100000))!=null) aa.incrementAndGet();
 //                }
 //        );
+
 //        for (int i = 0; i < 10000; i++) {
 //            if (repo.findOne(r.nextInt(100000))!=null) ++repeated;
 //        }
 //        System.out.println(aa.get());
-
-
 
 //        System.getProperties().put("java.util.concurrent.ForkJoinPool.common.parallelism", 4);
 //        System.out.println("Threads:" + ForkJoinPool.commonPool().getParallelism());
@@ -52,9 +63,16 @@ public class PostgresTest {
 //                    repo.save(r);
 ////                    System.out.println(r);
 //                })).get();
-        lista.parallelStream().forEach(r -> repo.save(r));
+//        lista.parallelStream().forEach(r -> repo.save(r));
+
+        long st = System.currentTimeMillis();
+        AtomicInteger found = new AtomicInteger();
+        lista.parallelStream().forEach(r->{
+            if (repo.findNumberOfMatchingValues(r.getValue())>0) found.intValue();
+        });
+        System.out.println(found);
         long en = System.currentTimeMillis();
-        System.out.println(repo.count());
+//        System.out.println(repo.count());
         System.out.println("Time: " + (en-st) + "[ms]");
         ctx.close();
     }
