@@ -1,0 +1,6 @@
+
+
+# All possible lables of nodes
+ match n return distinct labels(n)
+
+? all possible edge types?

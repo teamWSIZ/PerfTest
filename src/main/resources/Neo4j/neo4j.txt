@@ -1,0 +1,43 @@
+Shell:
+./neo4j-shell
+
+## Neo4J Notes:
+http://neo4j.com/docs/cypher-refcard/current/
+
+## Size of directory:
+du -sh data     #size of database
+rm -rf data/databases/graph.db      #delete the database (shutdown server first)
+
+
+
+
+http://localhost:7474/browser/ : neo4j:password
+
+#Nodes, labels
+create (nn:Person {name: "Nn"})
+create (buu:Person:Idiot)
+create (t:Thing {name:'Aqua', count:10})
+create (:Person {name:'Xi'})-[:A]->(:Person {name:'Nn'})
+
+#Search
+match (n:Person) return n
+match (s) where ID(s)>2 return s
+match (n) where n.name contains 'i' return n
+match (p:Person) where p.name="Bartek" return p
+
+#Update
+match (p) where ID(p)=5 SET p.name='Xiao'
+
+#Relations
+create (:Person {name:'Xi'})-[:A]->(:Person {name:'Nn'})
+
+#Delete
+match (n) detach delete n
+
+
+# List all indexes (legacy?):
+schema   (ONLINE; POPULATING; ...)
+
+
+# Create (schema idexes)
+CREATE INDEX ON :Person(name);
