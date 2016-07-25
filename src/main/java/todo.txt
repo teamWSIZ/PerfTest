@@ -2,6 +2,7 @@
 -ea -XX:+PrintCommandLineFlags  -XX:MaxMetaspaceSize=6000m
 -XX:InitialHeapSize=266371456 -XX:MaxHeapSize=4261943296 -XX:MaxMetaspaceSize=6291456000 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:-UseLargePagesIndividualAllocation -XX:+UseParallelGC class com.pi.clazz0
 
--XX:+PrintGC -XX:+PrintGCDetails  #GC statistics
--XX:+UseG1GC    #experimental GC
--Xloggc:gc.log  #log GC operations
+-XX:+PrintGC -XX:+PrintGCDetails
+
+
+test metrics: http://metrics.dropwizard.io/3.1.0/getting-started/
